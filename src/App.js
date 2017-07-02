@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router-dom';
-import { Nav, Navbar, NavItem } from 'react-bootstrap';
+import { Nav, Navbar } from 'react-bootstrap';
 import './App.css';
 import Routes from './Routes';
+import RouteNavItem from './components/RouteNavItem';
 
 class App extends Component {
     handleNavLink = (event) => {
@@ -21,8 +22,8 @@ class App extends Component {
         </Navbar.Header>
         <Navbar.Collapse>
             <Nav pullRight>
-                <NavItem onClick={this.handleNavLink} href="/signup">Signup</NavItem>
-                <NavItem onClick={this.handleNavLink} href="/login">Login</NavItem>
+                <RouteNavItem onClick={this.handleNavLink} href="/signup">Signup</RouteNavItem>
+                <RouteNavItem onClick={this.handleNavLink} href="/login">Login</RouteNavItem>
             </Nav>
         </Navbar.Collapse>
     </Navbar>
