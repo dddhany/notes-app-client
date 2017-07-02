@@ -46,6 +46,7 @@ class App extends Component {
       currentUser.signOut();
     }
     this.updateUserToken(null);
+    this.props.history.push('/login');
   }
   getCurrentUser(){
     const userPool = new CognitoUserPool({
