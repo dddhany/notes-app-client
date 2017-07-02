@@ -1,25 +1,35 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Navbar } from 'react-bootstrap';
+import { withRouter, Link } from 'react-router-dom';
+import { Nav, Navbar, NavItem } from 'react-bootstrap';
 import './App.css';
 import Routes from './Routes';
 
 class App extends Component {
+    handleNavLink = (event) => {
+      event.preventDefault();
+      this.props.history.push(event.currentTarget.getAttribute('href'));
+    }
   render() {
     return (
-      <div className="App container">
-        <Navbar fluid collapseOnSelect>
-          <Navbar.Header>
+<div className="App container">
+    <Navbar fluid collapseOnSelect>
+        <Navbar.Header>
             <Navbar.Brand>
-              <Link to="/">Scratch</Link>
+                <Link to="/">Scratch</Link>
             </Navbar.Brand>
             <Navbar.Toggle />
-          </Navbar.Header>
-        </Navbar>
-        <Routes />
-      </div>
+        </Navbar.Header>
+        <Navbar.Collapse>
+            <Nav pullRight>
+                <NavItem onClick={this.handleNavLink} href="/signup">Signup</NavItem>
+                <NavItem onClick={this.handleNavLink} href="/login">Login</NavItem>
+            </Nav>
+        </Navbar.Collapse>
+    </Navbar>
+    <Routes />
+</div>
     );
   }
 }
 
-export default App;
+export default withRouter(App);
