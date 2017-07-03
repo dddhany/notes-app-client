@@ -8,7 +8,7 @@ import {
 import LoaderButton from '../components/LoaderButton';
 import config from '../config.js';
 import './NewNote.css';
-import {invokeApig} from '../libs/awsLib';
+import {invokeApig, s3Upload} from '../libs/awsLib';
 
 class NewNote extends Component {
   constructor(props) {
@@ -36,7 +36,13 @@ class NewNote extends Component {
     }
     this.setState({isLoading:true});
     try{
-      await this.createNote({content: this.state.content,});
+      const uploadedFilename = this.file 
+      ? (await s3Upload(this.file, this.props.userToken)).Location
+      : null;
+      await this.createNote({
+        content: this.state.content,
+        attachment: uploadedFilename,
+      });
       this.props.history.push('/');
     } catch(e){
       alert(e);
