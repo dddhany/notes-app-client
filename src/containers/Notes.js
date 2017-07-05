@@ -79,6 +79,12 @@ class Notes extends Component {
       this.setState({isLoading: false});
     }
   }
+  deleteNote(){
+    return invokeApig({
+      path: `/notes/${this.props.match.params.id}`,
+      method: 'DELETE',
+    }, this.props.userToken);
+  }
   handleDelete = async event=>{
     event.preventDefault();
     const confirmed = window.confirm('Are you sure you want to delete this note?');
@@ -86,6 +92,13 @@ class Notes extends Component {
       return;
     }
     this.setState({isDeleting: true});
+    try{
+      await this.deleteNote();
+      this.props.history.push('/');
+    } catch(e){
+      alert(e);
+      this.setState({isLoading: false});
+    }
   }
   render(){
     return (
